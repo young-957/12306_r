@@ -54,17 +54,24 @@ public final class AbstractChainContext<T> implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        //调用springioc工厂获取AbstractChainHandler.class 接口类型的Bean
         Map<String, AbstractChainHandler> chainFilterMap = ApplicationContextHolder
                 .getBeansOfType(AbstractChainHandler.class);
+        //获取mark（责任链业务标识）的处理器集合
         chainFilterMap.forEach((beanName, bean) -> {
             List<AbstractChainHandler> abstractChainHandlers = abstractChainHandlerContainer.get(bean.mark());
+            //如果不存在则创建一个集合
             if (CollectionUtils.isEmpty(abstractChainHandlers)) {
                 abstractChainHandlers = new ArrayList();
             }
+            //添加到处理器集合中
             abstractChainHandlers.add(bean);
+            //对处理器集合执行顺序进行排序
+            //为什么排序？ 比如：执行验证接口，执行性能最快的最先执行； 如果调用redis，耗费性能，可以放后面。
             List<AbstractChainHandler> actualAbstractChainHandlers = abstractChainHandlers.stream()
                     .sorted(Comparator.comparing(Ordered::getOrder))
                     .collect(Collectors.toList());
+            //放入容器等待被调用
             abstractChainHandlerContainer.put(bean.mark(), actualAbstractChainHandlers);
         });
     }

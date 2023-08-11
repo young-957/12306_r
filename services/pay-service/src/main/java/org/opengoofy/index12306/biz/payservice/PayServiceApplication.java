@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.opengoofy.index12306.biz.payservice")
 @MapperScan("org.opengoofy.index12306.biz.payservice.dao.mapper")
 public class PayServiceApplication {
 

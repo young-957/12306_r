@@ -95,6 +95,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     public UserLoginRespDTO login(UserLoginReqDTO requestParam) {
         String usernameOrMailOrPhone = requestParam.getUsernameOrMailOrPhone();
         boolean mailFlag = false;
+        //判断登录方式， 手机号或者邮箱
         // 时间复杂度最佳 O(1)。indexOf or contains 时间复杂度为 O(n)
         for (char c : usernameOrMailOrPhone.toCharArray()) {
             if (c == '@') {
@@ -103,6 +104,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             }
         }
         String username;
+        //拿到用户名
         if (mailFlag) {
             LambdaQueryWrapper<UserMailDO> queryWrapper = Wrappers.lambdaQuery(UserMailDO.class)
                     .eq(UserMailDO::getMail, usernameOrMailOrPhone);
