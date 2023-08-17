@@ -1,0 +1,16 @@
+RocketMQ
+域名：common-rocketmq-dev.magestack.cn:9876
+
+Nacos
+域名：common-nacos-dev.magestack.cn:8848
+
+Redis
+域名：common-redis-dev.magestack.cn
+
+-Dspring.data.redis.password=Sm9sVXBOYJjI030b5tz0trjpzvZzRhtZmEbv0uOImcD1wEDOPfeaqNU4PxHob/Wp
+-Dspring.data.redis.port=19389
+-Dunique-name=-hd
+-Dframework.cache.redis.prefix=rhd
+-Dspring.data.redis.host=common-redis-dev.magestack.cn
+-Drocketmq.name-server=common-rocketmq-dev.magestack.cn:9876
+-Dspring.cloud.nacos.discovery.server-addr=common-nacos-dev.magestack.cn:8848
